@@ -1,27 +1,34 @@
 <script lang="ts" setup>
-import { ref } from 'vue'
-
 const props = defineProps<{
-  value?: string
+  modelValue?: string
   label?: string
   hint?: string
 }>()
 
-const emits = defineEmits<{
-  input: [value: string]
+const emit = defineEmits<{
+  'update:modelValue': [value: string]
 }>()
 
 const show = ref(false)
+
+const value = computed({
+  get() {
+    return props.modelValue ?? ''
+  },
+  set(value: string) {
+    emit('update:modelValue', value)
+  }
+})
 </script>
 
 <template>
   <v-text-field
-  :value="props.value"
-  @input="emits.input($event)"
+  v-model="value"
 
   :label="props.label"
   :hint="props.hint"
 
+  :type="show ? 'text' : 'password'"
   :append-inner-icon="show ? 'mdi-eye' : 'mdi-eye-off'"
   @click:append-inner="show = !show"
   />
