@@ -14,7 +14,6 @@ const state = reactive({
         <v-text-field label="Email" required />
         <PasswordField v-model="state.password" />
         <v-btn color="primary">Sign Up</v-btn>
-        <v-btn color="secondary">Sign Up</v-btn>
       </v-form>
     </v-card>
   </div>
