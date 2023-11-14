@@ -1,9 +1,9 @@
 <template>
-  <NuxtErrorBoundary>
+  <ErrorBoundary>
     <v-app>
       <NuxtLayout>
         <NuxtPage />
       </NuxtLayout>
     </v-app>
-  </NuxtErrorBoundary>
+  </ErrorBoundary>
 </template>

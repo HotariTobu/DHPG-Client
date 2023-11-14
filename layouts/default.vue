@@ -26,7 +26,7 @@ const search = () => {
 
 <template>
   <v-navigation-drawer v-model="drawer" location="right" temporary>
-
+    <nuxt-link to="/sign-up">Sign Up</nuxt-link>
   </v-navigation-drawer>
 
   <v-app-bar>
