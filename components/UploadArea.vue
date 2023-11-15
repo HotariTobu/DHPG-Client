@@ -41,10 +41,20 @@ const handleDrop = (event: DragEvent) => {
 </script>
 
 <template>
-  <label @dragover.prevent="handleDragover" @drop.prevent="handleDrop">
-    <input type="file" multiple @change="handleChange">
+  <label
+    @dragover.prevent="handleDragover"
+    @drop.prevent="handleDrop"
+  >
+    <input
+      type="file"
+      multiple
+      @change="handleChange"
+    >
     <slot>
-      <v-card class="pa-4 text-center" link>
+      <v-card
+        class="pa-4 text-center"
+        link
+      >
         Upload here...
       </v-card>
     </slot>

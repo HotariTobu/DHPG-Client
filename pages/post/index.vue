@@ -3,6 +3,7 @@ import type Post from '@/schemas/post'
 
 const axios = useAxios()
 const router = useRouter()
+// const user = useUser(true)
 const user = useUser()
 
 const state = reactive({
@@ -22,7 +23,7 @@ const handleUpload = async (files: FileList) => {
   }
 }
 
-const handleSubmit = async () => {
+const post = async () => {
   if (user.value === null) {
     throw new Error('User was null')
   }
@@ -50,19 +51,33 @@ const handleSubmit = async () => {
   <div>
     <div class="mx-4 d-flex flex-column">
       <div>
-        <BlobImage class="mt-4" v-for="[id, img] of imgs" :key="id" :blob="img">
+        <BlobImage
+          class="mt-4"
+          v-for="[id, img] of imgs"
+          :key="id"
+          :blob="img"
+        >
           <v-btn>text</v-btn>
         </BlobImage>
-        <UploadArea class="mt-4" @upload="handleUpload" />
+        <UploadArea
+          class="mt-4"
+          @upload="handleUpload"
+        />
       </div>
       <v-form class="mt-4">
-        <v-text-field label="title" v-model="state.title" required />
-        <v-textarea label="description" v-model="state.description" />
-        <ProcessButton :func="handleSubmit">Post</ProcessButton>
-      </v-form>
-    </div>
+        <v-text-field
+          label="title"
+          v-model="state.title"
+          required
+      />
+      <v-textarea
+        label="description"
+        v-model="state.description"
+      />
+      <ProcessButton :func="post">Post</ProcessButton>
+    </v-form>
   </div>
-</template>
+</div></template>
 
 <style scoped>
 </style>

@@ -1,6 +1,4 @@
-interface User {
-  userId: number
-}
+import type User from "~/schemas/user"
 
 export const useUser = (needLogin = false) => {
   const router = useRouter()

@@ -17,12 +17,21 @@ onErrorCaptured(error => {
   <div>
     <slot />
 
-    <v-snackbar color="red" location="bottom left" :model-value="true" timeout="-1" v-for="[id, error] of errorLogs"
-      :key="id">
+    <v-snackbar
+      color="red"
+      location="bottom left"
+      :model-value="true"
+      timeout="-1"
+      v-for="[id, error] of errorLogs"
+      :key="id"
+    >
       {{ error.message }}
 
       <template v-slot:actions>
-        <v-btn variant="text" @click="errorLogs.delete(id)">
+        <v-btn
+          variant="text"
+          @click="errorLogs.delete(id)"
+        >
           Close
         </v-btn>
       </template>

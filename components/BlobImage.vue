@@ -16,7 +16,11 @@ readAsDataURLAsync(props.blob).then(dataUrl => src.value = dataUrl)
         <v-skeleton-loader type="image" />
       </slot>
     </div>
-    <v-img :src="src" @load="loading = false">
+    <v-img
+      v-bind="$attrs"
+      :src="src"
+      @load="loading = false"
+    >
       <div v-if="!loading">
         <slot />
       </div>

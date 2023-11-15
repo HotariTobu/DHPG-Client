@@ -1,8 +1,10 @@
-import axios, { type AxiosRequestConfig, type AxiosResponse } from "axios"
+import axios from "axios"
 
 export const useAxios = () => {
+  const runtimeConfig = useRuntimeConfig()
+
   const instance = axios.create({
-    baseURL: process.env.API_BASE_URL,
+    baseURL: runtimeConfig.public.API_BASE_URL,
     timeout: 1000,
   })
 
