@@ -56,8 +56,11 @@ yarn dev
 Nuxtを使っているので、詳しくは[Nuxtのドキュメント](https://nuxt.com/docs/getting-started/introduction)を参照してください。
 Nuxtは簡単にいうと、Vue.jsでWebアプリを作れるものです。
 
-また、Vuetifyを使っているのでvから始まるコンポーネントに関しては[Vuetifyのコンポーネント一覧](https://vuetifyjs.com/en/components/all/#containment)を参照してください。
+またVuetifyを使っているので、vから始まるコンポーネントに関しては[Vuetifyのコンポーネント一覧](https://vuetifyjs.com/en/components/all/#containment)を参照してください。
 Vuetifyは簡単にいうと、いい感じの見た目（マテリアルデザイン）のコンポーネントをまとめたライブラリです。
+
+そしてTypeScriptを使っているので、詳しくは[TypeScriptのドキュメント](https://www.typescriptlang.org/docs/handbook/intro.html)を参照してください。
+TypeScriptは簡単にいうと、型がついたJavaScriptです。
 
 ### `/components`
 
