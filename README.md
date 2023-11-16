@@ -1,75 +1,106 @@
-# Nuxt 3 Minimal Starter
+# DHPG-Client
 
-Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+`DHPG`のフロントエンドです。
+バックエンドは[こちら](https://github.com/guinpen98/DHPG-Server)
 
-## Setup
+## 環境構築のしかた
 
-Make sure to install the dependencies:
+### Node.jsをインストールする
 
-```bash
-# npm
-npm install
+[Node.js](https://nodejs.org)がパソコンに入っていなければ入れてください。
 
-# pnpm
-pnpm install
+### yarnをインストールする
 
-# yarn
-yarn install
+`npm`のかわりに`yarn`を使うので、`yarn`が入っていなければ入れてください。
 
-# bun
-bun install
+```sh
+npm install --global yarn
 ```
 
-## Development Server
+### リポジトリをクローンする
 
-Start the development server on `http://localhost:3000`:
+```sh
+git clone https://github.com/HotariTobu/DHPG-Client.git
+```
 
-```bash
-# npm
-npm run dev
+### クローンしたリポジトリのディレクトリに移動する
 
-# pnpm
-pnpm run dev
+```sh
+cd DHPG-Client
+```
 
-# yarn
+以降のコマンドはこのディレクトリで実行します。
+
+### パッケージをインストールする
+
+```sh
+yarn
+```
+
+`package.json`と`yarn.lock`の内容にしたがってパッケージが`node_modules`にインストールされます。
+
+## 実行してみるには
+
+### サーバーを起動する
+
+```
 yarn dev
-
-# bun
-bun run dev
 ```
 
-## Production
+### ブラウザでアクセスする
 
-Build the application for production:
+[localhost:3000](http://localhost:3000)にアクセスしてください。
 
-```bash
-# npm
-npm run build
+## ディレクトリ構造について
 
-# pnpm
-pnpm run build
+Nuxtを使っているので、詳しくは[Nuxtのドキュメント](https://nuxt.com/docs/getting-started/introduction)を参照してください。
+Nuxtは簡単にいうと、Vue.jsでWebアプリを作れるものです。
 
-# yarn
-yarn build
+また、Vuetifyを使っているのでvから始まるコンポーネントに関しては[Vuetifyのコンポーネント一覧](https://vuetifyjs.com/en/components/all/#containment)を参照してください。
+Vuetifyは簡単にいうと、いい感じの見た目（マテリアルデザイン）のコンポーネントをまとめたライブラリです。
 
-# bun
-bun run build
+### `/components`
+
+UIのコンポーネント（パーツ）が入っています。
+例えば`/components/PasswordField.vue`ではパスワード入力のためのコンポーネントが定義されています。
+
+### `/composables`
+
+コンポーネントで使われる便利なものが入っています。
+例えば`/composables/useAxios.ts`ではAxios（HTTPリクエストのライブラリ）を使うための`useAxios`が定義されています。
+
+### `/layouts`
+
+複数のページのコンポーネントに適用されるレイアウトのコンポーネントが入っています。
+例えば`/layouts/default.vue`では通常のページのコンポーネントが内包されるレイアウトが定義されています。
+
+### `/pages`
+
+ページを表すコンポーネントが入っています。
+例えば`/pages/login.vue`では[/login](http://localhost:3000/login)にアクセスしたときに表示されるページのコンポーネントが定義されています。
+`index.vue`は特殊で、`/pages/index.vue`は[/](http://localhost:3000/)に、`/pages/post/index.vue`は[/post](http://localhost:3000/post)にアクセスしたときのページです。
+
+### `/schemas`
+
+データ構造が入っています。
+例えば`/schemas/post.ts`に定義されている`Post`インターフェースは投稿を表します。
+
+### `/utils`
+
+どこでも使える便利なものが入っています。
+例えば`/utils/getQueryString.ts`では
+
+```json
+{
+    "q": "検索文字列",
+    "t": "タブ"
+}
 ```
 
-Locally preview production build:
+このようなオブジェクトを
 
-```bash
-# npm
-npm run preview
-
-# pnpm
-pnpm run preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
+```js
+"?q=検索文字列&t=タブ"
 ```
 
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+このような文字列に変換する関数が定義されています。
