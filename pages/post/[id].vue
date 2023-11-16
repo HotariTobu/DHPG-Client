@@ -13,25 +13,25 @@ const post = data.value?.data
 
 <template>
   <div>
-    <VAlert
+    <v-alert
       class="ma-4"
       v-if="error !== null"
       type="error"
-    >{{ error }}</VAlert>
+    >{{ error }}</v-alert>
     <div v-else>
       <div v-if="pending">
-        <VSkeletonLoader type="image" />
+        <v-skeleton-loader type="image" />
       </div>
       <div v-else-if="typeof post !== 'undefined'">
-        <VImg :src="post.content" />
-        <VCard>
+        <v-img :src="post.content" />
+        <v-card>
           <NuxtLink to="/user/[userId]">
-            <VAvatar image="https://cdn.vuetifyjs.com/images/john.png"/>
+            <v-avatar image="https://cdn.vuetifyjs.com/images/john.png"/>
             <div class="text-medium-emphasis">Username</div>
           </NuxtLink>
           <div class="text-h6 text-md-h5 text-lg-h4">{{ post.title }}</div>
           <div>{{ post.description }}</div>
-        </VCard>
+        </v-card>
       </div>
     </div>
   </div>

@@ -23,17 +23,17 @@ const get = async (pageOffset?: number) => {
 
 <template>
   <div>
-    <VAlert
+    <v-alert
       class="ma-4"
       v-if="error !== null"
       type="error"
-    >{{ error }}</VAlert>
+    >{{ error }}</v-alert>
     <div v-else>
       <div v-if="pending">
-        <VSkeletonLoader type="image" />
+        <v-skeleton-loader type="image" />
       </div>
       <div v-else-if="typeof user !== 'undefined'">
-        <VAvatar image="https://cdn.vuetifyjs.com/images/john.png" />
+        <v-avatar image="https://cdn.vuetifyjs.com/images/john.png" />
         <div class="text-h6 text-md-h5 text-lg-h4">{{ user.name }}</div>
         <div>{{ user.description }}</div>
         <Posts :get="get" />

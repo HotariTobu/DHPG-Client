@@ -16,39 +16,39 @@ const thumbnails = data.value
 
 <template>
   <div v-if="error === null">
-    <VContainer>
-      <VRow v-if="pending || thumbnails === null">
-        <VCol
+    <v-container>
+      <v-row v-if="pending || thumbnails === null">
+        <v-col
           cols="3"
           v-for="i in 12"
           :key="i"
         >
-          <VSkeletonLoader type="image" />
-        </VCol>
-      </VRow>
-      <VRow v-else>
-        <VCol
+          <v-skeleton-loader type="image" />
+        </v-col>
+      </v-row>
+      <v-row v-else>
+        <v-col
           v-for="thumbnail of thumbnails"
           :key="thumbnail.postId"
         >
           <NuxtLink :to="`/post/${thumbnail.postId}`">
-            <VImg :src="thumbnail.thumbnail" />
+            <v-img :src="thumbnail.thumbnail" />
           </NuxtLink>
-        </VCol>
-      </VRow>
-    </VContainer>
+        </v-col>
+      </v-row>
+    </v-container>
     <ClientOnly>
-      <VPagination
+      <v-pagination
         :length="page"
         v-model="page"
       />
     </ClientOnly>
   </div>
   <div v-else>
-    <VAlert
+    <v-alert
       class="ma-4"
       type="error"
-    >{{ error }}</VAlert>
+    >{{ error }}</v-alert>
   </div>
 </template>
 
