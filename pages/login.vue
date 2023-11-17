@@ -9,7 +9,7 @@ const state = reactive({
 })
 
 const login = async () => {
-  const res = await axios.post<typeof user.value>('/login', state)
+  const res = await axios.post<typeof user.value>('/login', toRaw(state))
 
   if (res.status === 200) {
     user.value = res.data

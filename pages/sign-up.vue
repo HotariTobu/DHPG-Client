@@ -10,7 +10,7 @@ const state = reactive({
 })
 
 const signUp = async () => {
-  const res = await axios.post<typeof user.value>('/user', state)
+  const res = await axios.post<typeof user.value>('/user', toRaw(state))
 
   if (res.status === 201) {
     user.value = res.data
