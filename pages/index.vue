@@ -2,7 +2,7 @@
 const axios = useAxios()
 
 const get = async (pageOffset?: number) => {
-  const res = await axios.get('/post', {
+  const res = await axios.get('/thumbnail', {
     params: {
       pageOffset,
     }

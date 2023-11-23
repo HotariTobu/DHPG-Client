@@ -3,7 +3,7 @@ export default interface Post {
   userId: number,
   title: string,
   description: string,
-  content: string,
+  contents: string[],
   createdAt: Date,
   updatedAt: Date,
 }

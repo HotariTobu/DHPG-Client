@@ -35,7 +35,7 @@ const post = async () => {
   const res = await axios.post<Post>('/post', {
     ...toRaw(state),
     userId: user.value.userId,
-    content: imgs.value.values().next().value
+    contents: imgs.value.values().next().value
   })
 
   if (res.status === 201) {

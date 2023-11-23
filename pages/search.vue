@@ -9,7 +9,7 @@ tab.value = query.t
 const searchParam = query.q
 
 const get = async (pageOffset?: number) => {
-  const res = await axios.get('/post', {
+  const res = await axios.get('/thumbnail', {
     params: {
       pageOffset,
       searchParam,
