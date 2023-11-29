@@ -32,10 +32,13 @@ const post = async () => {
     return
   }
 
+  const blobs = Array.from(imgs.value.values())
+  const contents = await Promise.all(blobs.map(readAsDataURLAsync))
+
   const res = await axios.post<Post>('/post', {
-    ...toRaw(state),
     userId: user.value.userId,
-    contents: imgs.value.values().next().value
+    ...toRaw(state),
+    contents,
   })
 
   if (res.status === 201) {
@@ -69,15 +72,16 @@ const post = async () => {
           label="title"
           v-model="state.title"
           required
-      />
-      <v-textarea
-        label="description"
-        v-model="state.description"
-      />
-      <ProcessButton :func="post">Post</ProcessButton>
-    </v-form>
+        />
+        <v-textarea
+          label="description"
+          v-model="state.description"
+        />
+        <ProcessButton :func="post">Post</ProcessButton>
+      </v-form>
+    </div>
   </div>
-</div></template>
+</template>
 
 <style scoped>
 </style>

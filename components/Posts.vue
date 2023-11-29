@@ -1,56 +1,66 @@
 <script lang="ts" setup>
 import type Thumbnail from '~/schemas/thumbnail';
 
+interface ThumbnailResponse {
+  totalPageCount: number,
+  thumbnails: Thumbnail[],
+}
+
 const { page, pageOffset } = usePagination()
 
 const props = defineProps<{
-  get: (pageOffset?: number) => Promise<{
-    totalPageCount: number,
-    thumbnails: Thumbnail[],
-  }>
+  userId?: number,
+  searchParam?: string,
 }>()
 
-const { data, pending, error } = await useLazyAsyncData(() => {
-  return props.get(pageOffset)
-})
+const config = {
+  params: {
+    pageOffset,
+    ...props,
+  }
+}
 </script>
 
 <template>
-  <div v-if="error === null">
-    <v-container>
-      <v-row v-if="pending || data === null">
-        <v-col
-          cols="3"
-          v-for="i in 12"
-          :key="i"
-        >
-          <v-skeleton-loader type="image" />
-        </v-col>
-      </v-row>
-      <v-row v-else>
-        <v-col
-          v-for="thumbnail of data.thumbnails"
-          :key="thumbnail.postId"
-        >
-          <NuxtLink :to="`/post/${thumbnail.postId}`">
-            <v-img :src="thumbnail.src" />
-          </NuxtLink>
-        </v-col>
-      </v-row>
-    </v-container>
-    <ClientOnly>
-      <v-pagination
-        :length="data?.totalPageCount"
-        v-model="page"
-      />
-    </ClientOnly>
-  </div>
-  <div v-else>
-    <v-alert
-      class="ma-4"
-      type="error"
-    >{{ error }}</v-alert>
-  </div>
+  <DataProvider
+    url="/thumbnail"
+    :config="config"
+    :dummy="({} as ThumbnailResponse)"
+  >
+    <template #pending>
+      <v-container>
+        <v-row>
+          <v-col
+            cols="3"
+            v-for="i in 12"
+            :key="i"
+          >
+            <v-skeleton-loader type="image" />
+          </v-col>
+        </v-row>
+      </v-container>
+    </template>
+    <template #default="{ data }">
+      <v-container>
+        <v-row>
+          <v-col
+            v-for="thumbnail of data.thumbnails"
+            :key="thumbnail.postId"
+          >
+            <NuxtLink :to="`/post/${thumbnail.postId}`">
+              <v-img :src="thumbnail.src" />
+            </NuxtLink>
+          </v-col>
+        </v-row>
+      </v-container>
+      <ClientOnly>
+        <v-pagination
+          :length="data.totalPageCount"
+          v-model="page"
+        />
+      </ClientOnly>
+    </template>
+  </DataProvider>
 </template>
 
 <style scoped>

@@ -1,22 +1,11 @@
 <script lang="ts" setup>
-const axios = useAxios()
 const { query, updateQuery } = useQuery()
 
 const tab = ref()
 watch(tab, nextTab => updateQuery('t', nextTab))
 
 tab.value = query.t
-const searchParam = query.q
-
-const get = async (pageOffset?: number) => {
-  const res = await axios.get('/thumbnail', {
-    params: {
-      pageOffset,
-      searchParam,
-    }
-  })
-  return res.data
-}
+const searchParam = String(query.q)
 </script>
 
 <template>
@@ -31,17 +20,11 @@ const get = async (pageOffset?: number) => {
 
     <v-window v-model="tab">
       <v-window-item value="post">
-    <Posts :get="get"/>
+        <Posts :search-param="searchParam" />
       </v-window-item>
 
       <v-window-item value="user">
-        <v-list>
-          <v-list-item
-            prepend-avatar="https://cdn.vuetifyjs.com/images/john.png"
-            title="username"
-            to="/user/8"
-          />
-        </v-list>
+        <Users :search-param="searchParam" />
       </v-window-item>
     </v-window>
   </div>

@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+import type User from '~/schemas/user';
+
 const axios = useAxios()
 const router = useRouter()
 const user = useUser()
@@ -10,7 +12,7 @@ const state = reactive({
 })
 
 const signUp = async () => {
-  const res = await axios.post<typeof user.value>('/user', toRaw(state))
+  const res = await axios.post<User>('/sign-up', toRaw(state))
 
   if (res.status === 201) {
     user.value = res.data

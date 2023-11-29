@@ -1,5 +1,7 @@
 <script lang="ts" setup>
+const axios = useAxios()
 const { updateQuery } = useQuery()
+const router = useRouter()
 const user = useUser()
 
 const drawer = ref(false)
@@ -12,6 +14,18 @@ const search = () => {
   }
 
   updateQuery('q', param, '/search')
+}
+
+const logout = async () => {
+  const res = await axios.get('/logout')
+
+  if (res.status === 200) {
+    user.value = null
+    router.go(0)
+  }
+  else {
+    throwResponseError(res)
+  }
 }
 </script>
 
@@ -66,9 +80,17 @@ const search = () => {
       title="iSign"
       subtitle="Image SNS"
     ></v-list-item>
-    <v-divider></v-divider>
-    <v-list-item to="/sign-up">Sign Up</v-list-item>
-    <v-list-item to="/login">Login</v-list-item>
+    <v-divider />
+    <div v-if="user === null">
+      <v-list-item to="/sign-up">Sign Up</v-list-item>
+      <v-list-item to="/login">Login</v-list-item>
+    </div>
+    <div v-else>
+      <v-list-item to="/post">Post</v-list-item>
+      <v-list-item @click-once="logout">Logout</v-list-item>
+    </div>
+    <v-divider />
+    <v-list-item to="/verify">Verify</v-list-item>
   </v-navigation-drawer>
 
   <v-main>

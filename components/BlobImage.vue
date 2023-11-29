@@ -4,28 +4,28 @@ const props = defineProps<{
 }>()
 
 const loading = ref(true)
-const src = ref('')
 
-readAsDataURLAsync(props.blob).then(dataUrl => src.value = dataUrl)
+const key = Date.now().toString()
+const { data: src, pending } = useLazyAsyncData(key, () => {
+  return readAsDataURLAsync(props.blob)
+}, {
+
+})
 </script>
 
 <template>
-  <div>
-    <div v-if="loading">
-      <slot name="placeholder">
-        <v-skeleton-loader type="image" />
-      </slot>
-    </div>
-    <v-img
-      v-bind="$attrs"
-      :src="src"
-      @load="loading = false"
+  <v-img
+    :src="src ?? ''"
+    @load="loading = false"
+  >
+    <slot
+      v-if="pending || loading"
+      name="placeholder"
     >
-      <div v-if="!loading">
-        <slot />
-      </div>
-    </v-img>
-  </div>
+      <v-skeleton-loader type="image" />
+    </slot>
+    <slot v-else />
+  </v-img>
 </template>
 
 <style scoped>
