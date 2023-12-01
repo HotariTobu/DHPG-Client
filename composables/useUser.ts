@@ -7,7 +7,6 @@ export const useUser = (needLogin = false) => {
 
   if (needLogin && user.value === null) {
     router.push('/login')
-    throw new Error()
   }
 
   return user

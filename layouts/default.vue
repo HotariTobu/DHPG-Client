@@ -23,7 +23,6 @@ const logout = async () => {
 
   if (res.status === 200) {
     user.value = null
-    router.go(0)
   }
   else {
     throwResponseError(res)
