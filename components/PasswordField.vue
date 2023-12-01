@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+import { mdiEye, mdiEyeOff } from '@mdi/js'
+
 const props = defineProps<{
   modelValue?: string
 }>()
@@ -24,7 +26,7 @@ const value = computed({
     v-bind="$attrs"
     v-model="value"
     :type="show ? 'text' : 'password'"
-    :append-inner-icon="show ? 'mdi-eye' : 'mdi-eye-off'"
+    :append-inner-icon="show ? mdiEye : mdiEyeOff"
     @click:append-inner="show = !show"
   />
 </template>

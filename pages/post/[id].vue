@@ -8,7 +8,7 @@ const postId = useId()
 <template>
   <div>
     <DataProvider
-      :url="`/user/${postId}`"
+      :url="`/post/${postId}`"
       :dummy="({} as Post)"
     >
       <template #default="{ data: post }">
@@ -19,7 +19,7 @@ const postId = useId()
               :src="content"
             />
           </div>
-          <v-card>
+          <v-card class="pa-4">
             <DataProvider
               :url="`/user/${post.userId}`"
               :dummy="({} as User)"
@@ -35,7 +35,7 @@ const postId = useId()
               </template>
             </DataProvider>
             <div class="text-h6 text-md-h5 text-lg-h4">{{ post.title }}</div>
-            <div class="text-gray">Created at {{ post.createdAt }}</div>
+            <div class="text-gray">Created at {{ post.createdAt.toLocaleString() }}</div>
             <div>{{ post.description }}</div>
           </v-card>
         </div>

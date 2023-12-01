@@ -8,7 +8,9 @@ const image = ref<string | null>(null)
 const user = ref<User | null>(null)
 
 const verify = async (data: string) => {
-  const res = await axios.post<User>('/verify', data)
+  const res = await axios.post<User>('/verify', {
+    data,
+  })
 
   if (res.status === 200) {
     status.value = 'owned'

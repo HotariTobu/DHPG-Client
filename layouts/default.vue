@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+import { mdiMagnify } from '@mdi/js'
+
 const axios = useAxios()
 const { updateQuery } = useQuery()
 const router = useRouter()
@@ -48,7 +50,7 @@ const logout = async () => {
           label="search"
           @click:append-inner="search"
           @keyup.enter="search"
-          append-inner-icon="mdi-magnify"
+          :append-inner-icon="mdiMagnify"
           variant="outlined"
           density="compact"
           single-line
@@ -93,7 +95,7 @@ const logout = async () => {
     <v-list-item to="/verify">Verify</v-list-item>
   </v-navigation-drawer>
 
-  <v-main>
+  <v-main class="ma-4">
     <slot />
   </v-main>
 </template>

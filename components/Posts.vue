@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import { useDisplay } from 'vuetify/lib/framework.mjs';
 import type Thumbnail from '~/schemas/thumbnail';
 
 interface ThumbnailResponse {
@@ -19,6 +20,9 @@ const config = {
     ...props,
   }
 }
+
+const { lg, md, sm } = useDisplay()
+const cols = computed(() => lg.value ? 2 : md.value ? 3 : sm.value ? 4 : 6)
 </script>
 
 <template>
@@ -44,11 +48,16 @@ const config = {
       <v-container>
         <v-row>
           <v-col
+            :cols="cols"
             v-for="thumbnail of data.thumbnails"
             :key="thumbnail.postId"
           >
             <NuxtLink :to="`/post/${thumbnail.postId}`">
-              <v-img :src="thumbnail.src" />
+              <v-img
+                aspect-ratio="1"
+                :cover="true"
+                :src="thumbnail.src"
+              />
             </NuxtLink>
           </v-col>
         </v-row>

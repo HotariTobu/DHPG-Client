@@ -1,8 +1,7 @@
 // export default defineNuxtPlugin((nuxtApp) => {})
-
-import '@mdi/font/css/materialdesignicons.css'
 import 'vuetify/styles'
 import { createVuetify } from 'vuetify'
+import { aliases, mdi } from 'vuetify/iconsets/mdi-svg'
 
 import pallet from 'vuetify/lib/util/colors'
 
@@ -13,6 +12,13 @@ const colors = {
 
 export default defineNuxtPlugin((app) => {
   const vuetify = createVuetify({
+    icons: {
+      defaultSet: 'mdi',
+      aliases,
+      sets: {
+        mdi,
+      },
+    },
     theme: {
       themes: {
         light: {

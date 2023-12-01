@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import { mdiAccount } from "@mdi/js";
 import type User from '~/schemas/user';
 
 interface UserResponse {
@@ -40,10 +41,16 @@ const config = {
         <v-list-item
           v-for="user of data.users"
           :key="user.userId"
-          :prepend-avatar="user.icon"
           :title="user.name"
           :to="`/user/${user.userId}`"
-        />
+        >
+          <template #prepend>
+            <v-avatar
+              :image="user.icon"
+              :icon="mdiAccount"
+            />
+          </template>
+        </v-list-item>
       </v-list>
       <ClientOnly>
         <v-pagination

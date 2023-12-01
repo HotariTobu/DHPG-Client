@@ -3,8 +3,7 @@ import type Post from '@/schemas/post'
 
 const axios = useAxios()
 const router = useRouter()
-// const user = useUser(true)
-const user = useUser()
+const user = useUser(true)
 
 const state = reactive({
   title: '',
