@@ -1,13 +1,19 @@
 <script lang="ts" setup>
 import { mdiMagnify } from '@mdi/js'
+import { useTheme } from 'vuetify/lib/framework.mjs';
 
 const axios = useAxios()
 const { updateQuery } = useQuery()
 const router = useRouter()
+const theme = useTheme()
 const user = useUser()
 
 const drawer = ref(false)
 const searchParam = ref('')
+
+const goHome = () => {
+  router.push('/')
+}
 
 const search = () => {
   const param = searchParam.value
@@ -31,22 +37,31 @@ const logout = async () => {
 </script>
 
 <template>
-  <v-app-bar scroll-behavior="hide">
+  <v-app-bar
+    color="primary"
+    scroll-behavior="hide"
+  >
     <template #prepend>
-      <v-btn
-        to="/"
-        variant="plain"
-      >
-        iSign
-      </v-btn>
+      <a
+        class="text-h5 me-4 text-logo"
+        :style="{
+          color: theme.current.value.colors.text,
+          userSelect: 'none',
+          textDecoration: 'none',
+        }"
+        href="/"
+        @click.prevent="goHome"
+      >iSign</a>
     </template>
 
     <v-hover>
       <template #="{ isHovering, props }">
         <v-text-field
+          bg-color="secondary"
+          :rounded="true"
           v-bind="props"
           v-model="searchParam"
-          label="search"
+          placeholder="Search here..."
           @click:append-inner="search"
           @keyup.enter="search"
           :append-inner-icon="mdiMagnify"
@@ -60,8 +75,17 @@ const logout = async () => {
     </v-hover>
 
     <template #append>
+      <v-btn
+        color="accent"
+        variant="flat"
+      >
+        post
+      </v-btn>
       <div @click="drawer = !drawer">
-        <v-app-bar-nav-icon v-if="user === null" />
+        <v-app-bar-nav-icon
+          v-if="user === null"
+          color="secondary"
+        />
         <v-avatar
           v-else
           class="clickable"
@@ -99,8 +123,7 @@ const logout = async () => {
   </v-main>
 </template>
 
-<style scoped>
-.clickable:hover {
+<style scoped>.clickable:hover {
   cursor: pointer;
   opacity: 0.8;
 }

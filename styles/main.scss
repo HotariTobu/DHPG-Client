@@ -1,0 +1,19 @@
+@use 'vuetify';
+
+@import url('https://fonts.googleapis.com/css2?family=Overpass:wght@400&family=Satisfy&display=swap');
+
+body {
+  font-family: 'Overpass', sans-serif !important;
+}
+
+.text-logo {
+  font-family: 'Satisfy', cursive !important
+}
+
+.w-fit {
+  width: fit-content;
+}
+
+.no-transform {
+  text-transform: none !important;
+}

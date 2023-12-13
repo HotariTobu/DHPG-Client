@@ -1,4 +1,8 @@
 <script lang="ts" setup>
+definePageMeta({
+  layout: false,
+})
+
 const axios = useAxios()
 const router = useRouter()
 const user = useUser()
@@ -22,29 +26,35 @@ const login = async () => {
 </script>
 
 <template>
-  <div>
-    <v-card
-      class="mt-4 mx-auto pa-4"
-      :max-width="400"
-    >
-      <v-form>
-        <v-text-field
-          v-model="state.email"
-          label="Email"
-          required
-        />
-        <PasswordField
-          v-model="state.password"
-          label="Password"
-          required
-        />
-        <div class="d-flex justify-space-between align-end">
-          <ProcessButton :func="login">Login</ProcessButton>
-          <NuxtLink to="/sign-up">Never sign-up?</NuxtLink>
-        </div>
-      </v-form>
-    </v-card>
-  </div>
+  <v-card
+    class="mx-2 mx-sm-auto my-auto px-4 px-sm-10 py-10"
+    color="secondary"
+    :min-width="400"
+  >
+    <div class="mb-16 text-h2 text-center text-logo">
+      login
+    </div>
+    <v-form>
+      <v-text-field
+        bg-color="white"
+        v-model="state.email"
+        label="Email"
+        required
+      />
+      <PasswordField
+        bg-color="white"
+        v-model="state.password"
+        label="Password"
+        required
+      />
+      <ProcessButton
+        class="d-block mx-auto my-12"
+        width="200"
+        height="50"
+        :func="login"
+      >Login</ProcessButton>
+    </v-form>
+  </v-card>
 </template>
 
 <style scoped>
