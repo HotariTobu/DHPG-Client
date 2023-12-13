@@ -1,11 +1,9 @@
 <script lang="ts" setup>
-import { mdiMagnify } from '@mdi/js'
-import { useTheme } from 'vuetify/lib/framework.mjs';
+import { mdiAccount, mdiMagnify } from '@mdi/js'
 
 const axios = useAxios()
 const { updateQuery } = useQuery()
 const router = useRouter()
-const theme = useTheme()
 const user = useUser()
 
 const drawer = ref(false)
@@ -42,16 +40,13 @@ const logout = async () => {
     scroll-behavior="hide"
   >
     <template #prepend>
-      <a
-        class="text-h5 me-4 text-logo"
-        :style="{
-          color: theme.current.value.colors.text,
-          userSelect: 'none',
-          textDecoration: 'none',
-        }"
-        href="/"
-        @click.prevent="goHome"
-      >iSign</a>
+      <Text>
+        <a
+          class="logo text-h5 ms-2 me-8 text-logo"
+          href="/"
+          @click.prevent="goHome"
+        >iSign</a>
+      </Text>
     </template>
 
     <v-hover>
@@ -76,21 +71,40 @@ const logout = async () => {
 
     <template #append>
       <v-btn
+        class="mx-4"
         color="accent"
         variant="flat"
+        to="/post"
       >
-        post
+        <Text color="secondary">
+          post
+        </Text>
       </v-btn>
+      <v-avatar
+        v-if="user === null"
+        :icon="mdiAccount"
+        color="skeleton"
+      />
+      <NuxtLink
+        v-else
+        :to="`/user/${user.userId}`"
+      >
+        <v-avatar
+          class="cursor-pointer hover:opacity-80"
+          :image="user.icon"
+        />
+      </NuxtLink>
       <div @click="drawer = !drawer">
-        <v-app-bar-nav-icon
+        <v-app-bar-nav-icon color="secondary" />
+        <!-- <v-app-bar-nav-icon
           v-if="user === null"
           color="secondary"
         />
         <v-avatar
           v-else
-          class="clickable"
+          class="cursor-pointer hover:opacity-80"
           :image="user.icon"
-        ></v-avatar>
+        /> -->
       </div>
     </template>
   </v-app-bar>
@@ -114,17 +128,21 @@ const logout = async () => {
       <v-list-item to="/post">Post</v-list-item>
       <v-list-item @click-once="logout">Logout</v-list-item>
     </div>
-    <v-divider />
-    <v-list-item to="/verify">Verify</v-list-item>
+    <!-- <v-divider />
+    <v-list-item to="/verify">Verify</v-list-item> -->
   </v-navigation-drawer>
 
-  <v-main class="ma-4">
-    <slot />
-  </v-main>
+  <Text>
+    <v-main class="mb-16">
+      <slot />
+    </v-main>
+  </Text>
 </template>
 
-<style scoped>.clickable:hover {
-  cursor: pointer;
-  opacity: 0.8;
+<style scoped>
+.logo {
+  color: inherit;
+  user-select: none;
+  text-decoration: none;
 }
 </style>

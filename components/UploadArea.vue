@@ -42,10 +42,12 @@ const handleDrop = (event: DragEvent) => {
 
 <template>
   <label
+    class="d-flex flex-column cursor-pointer"
     @dragover.prevent="handleDragover"
     @drop.prevent="handleDrop"
   >
     <input
+      class="d-none"
       type="file"
       multiple
       @change="handleChange"
@@ -60,13 +62,3 @@ const handleDrop = (event: DragEvent) => {
     </slot>
   </label>
 </template>
-
-<style scoped>
-label {
-  display: block;
-}
-
-input {
-  display: none;
-}
-</style>

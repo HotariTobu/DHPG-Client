@@ -31,23 +31,19 @@ const cols = computed(() => lg.value ? 2 : md.value ? 3 : sm.value ? 4 : 6)
     :config="config"
     :dummy="({} as ThumbnailResponse)"
   >
-    <template #pending>
+    <template #="{ data }">
       <v-container>
         <v-row>
           <v-col
+            v-if="data === null"
             cols="3"
             v-for="i in 12"
             :key="i"
           >
             <v-skeleton-loader type="image" />
           </v-col>
-        </v-row>
-      </v-container>
-    </template>
-    <template #default="{ data }">
-      <v-container>
-        <v-row>
           <v-col
+            v-else
             :cols="cols"
             v-for="thumbnail of data.thumbnails"
             :key="thumbnail.postId"
@@ -62,7 +58,7 @@ const cols = computed(() => lg.value ? 2 : md.value ? 3 : sm.value ? 4 : 6)
           </v-col>
         </v-row>
       </v-container>
-      <ClientOnly>
+      <ClientOnly v-if="data">
         <v-pagination
           :length="data.totalPageCount"
           v-model="page"

@@ -7,30 +7,44 @@ const userId = useId()
 <template>
   <div>
     <DataProvider
+      class="ma-8"
       :url="`/user/${userId}`"
       :dummy="({} as User)"
     >
-      <template #pending>
+      <template #="{ data: user }">
         <div>
-          <v-skeleton-loader type="avatar" />
-          <div class="text-h6 text-md-h5 text-lg-h4">
-            <v-skeleton-loader type="text" />
+          <div class="d-flex">
+            <v-skeleton-loader
+              v-if="user === null"
+              type="avatar"
+            />
+            <v-avatar
+              v-else
+              size="x-large"
+              :image="user.icon"
+            />
+            <v-skeleton-loader
+              v-if="user === null"
+              type="text"
+            />
+            <Text
+              v-else
+              class="text-h6 text-md-h5 text-lg-h4"
+            >{{ user.name }}</Text>
           </div>
-          <div>
-            <v-skeleton-loader type="sentences" />
+          <v-skeleton-loader
+            v-if="user === null"
+            type="sentences"
+          />
+          <div v-else>
+            <Text color="skeleton">Joined at {{ user.createdAt.toLocaleDateString() }}</Text>
+            <Text>{{ user.description }}</Text>
           </div>
-        </div>
-      </template>
-      <template #default="{ data: user }">
-        <div>
-          <v-avatar :image="user.icon" />
-          <div class="text-h6 text-md-h5 text-lg-h4">{{ user.name }}</div>
-          <div class="text-gray">Joined at {{ user.createdAt.toLocaleDateString() }}</div>
-          <div>{{ user.description }}</div>
         </div>
       </template>
     </DataProvider>
 
+    <v-divider class="mx-2" />
     <Posts :user-id="userId" />
   </div>
 </template>

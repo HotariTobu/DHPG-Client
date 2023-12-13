@@ -27,18 +27,16 @@ const config = {
     :config="config"
     :dummy="({} as UserResponse)"
   >
-    <template #pending>
+    <template #="{ data }">
       <v-list>
         <v-skeleton-loader
+          v-if="data === null"
           type="list-item-avatar"
           v-for="i in 12"
           :key="i"
         />
-      </v-list>
-    </template>
-    <template #default="{ data }">
-      <v-list>
         <v-list-item
+          v-else
           v-for="user of data.users"
           :key="user.userId"
           :title="user.name"
@@ -52,7 +50,7 @@ const config = {
           </template>
         </v-list-item>
       </v-list>
-      <ClientOnly>
+      <ClientOnly v-if="data">
         <v-pagination
           :length="data.totalPageCount"
           v-model="page"

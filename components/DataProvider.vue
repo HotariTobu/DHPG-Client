@@ -10,7 +10,7 @@ const props = defineProps<{
 }>()
 
 const key = JSON.stringify(props)
-const { pending, error, data: res } = useLazyAsyncData(key, () => {
+const { error, data: res } = useLazyAsyncData(key, () => {
   return axios.get<T>(props.url, props.config)
 })
 </script>
@@ -18,35 +18,19 @@ const { pending, error, data: res } = useLazyAsyncData(key, () => {
 <template>
   <div>
     <slot
-      v-if="pending"
-      name="pending"
+      v-if="error"
+      name="error"
     >
-      <v-skeleton-loader />
+      <v-alert
+        class="ma-4"
+        type="error"
+      >{{ error }}</v-alert>
     </slot>
-    <div v-else>
-      <slot
-        v-if="error === null"
-        name="error-null"
-      />
-      <slot
-        v-else
-        name="error"
-      >
-        <v-alert
-          class="ma-4"
-          type="error"
-        >{{ error }}</v-alert>
-      </slot>
 
-      <slot
-        v-if="res === null"
-        name="data-null"
-      />
-      <slot
-        v-else
-        :data="res.data"
-      />
-    </div>
+    <slot
+      v-else
+      :data="res?.data ?? null"
+    />
   </div>
 </template>
 

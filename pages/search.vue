@@ -12,10 +12,9 @@ const searchParam = String(query.q)
   <div>
     <v-tabs
       v-model="tab"
-      grow
     >
-      <v-tab value="post">画像</v-tab>
-      <v-tab value="user">ユーザー</v-tab>
+      <v-tab value="post">image</v-tab>
+      <v-tab value="user">user</v-tab>
     </v-tabs>
 
     <v-window v-model="tab">
