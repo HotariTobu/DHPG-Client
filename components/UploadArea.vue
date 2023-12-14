@@ -1,4 +1,10 @@
 <script lang="ts" setup>
+const props = withDefaults(defineProps<{
+  disabled?: boolean,
+}>(), {
+  disabled: false,
+})
+
 const emit = defineEmits<{
   upload: [files: FileList]
 }>()
@@ -42,11 +48,15 @@ const handleDrop = (event: DragEvent) => {
 
 <template>
   <label
-    class="d-flex flex-column cursor-pointer"
+    class="d-flex flex-column"
+    :class="{
+      'cursor-pointer': !disabled,
+    }"
     @dragover.prevent="handleDragover"
     @drop.prevent="handleDrop"
   >
     <input
+      :disabled="disabled"
       class="d-none"
       type="file"
       multiple

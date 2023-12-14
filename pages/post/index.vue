@@ -1,9 +1,8 @@
 <script lang="ts" setup>
 import type Post from '@/schemas/post'
-import { useDisplay, useTheme } from 'vuetify/lib/framework.mjs';
+import { useTheme } from 'vuetify/lib/framework.mjs';
 
 const axios = useAxios()
-const { sm, md } = useDisplay()
 const router = useRouter()
 const theme = useTheme()
 const user = useUser(true)
@@ -17,7 +16,7 @@ const imgs = ref(new Map<number, Blob>())
 
 let nextId = 0
 
-const handleUpload = async (files: FileList) => {
+const handleUpload = (files: FileList) => {
   for (const file of files) {
     if (isImage(file)) {
       imgs.value.set(nextId++, file)

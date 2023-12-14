@@ -20,7 +20,13 @@ const signUp = async () => {
 
   if (res.status === 201) {
     user.value = res.data
-    router.replace('/')
+
+    if (window.history.state.back === null) {
+      router.replace('/')
+    }
+    else {
+      router.back()
+    }
   }
   else {
     throwResponseError(res)
@@ -61,7 +67,10 @@ const signUp = async () => {
           <Text class="me-4">
             Already a member?
           </Text>
-          <NuxtLink to="/login">Login</NuxtLink>
+          <NuxtLink
+            to="/login"
+            :replace="true"
+          >Login</NuxtLink>
         </div>
         <ProcessButton
           class="d-block mx-auto my-12"

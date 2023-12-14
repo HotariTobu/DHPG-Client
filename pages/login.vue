@@ -17,7 +17,13 @@ const login = async () => {
 
   if (res.status === 200) {
     user.value = res.data
-    router.replace('/')
+
+    if (window.history.state.back === null) {
+      router.replace('/')
+    }
+    else {
+      router.back()
+    }
   }
   else {
     throwResponseError(res)
