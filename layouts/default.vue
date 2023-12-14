@@ -42,7 +42,7 @@ const logout = async () => {
     <template #prepend>
       <Text>
         <a
-          class="logo text-h5 ms-2 me-8 text-logo"
+          class="logo text-h4 ms-4 me-6 text-logo"
           href="/"
           @click.prevent="goHome"
         >iSign</a>
@@ -80,23 +80,8 @@ const logout = async () => {
           post
         </Text>
       </v-btn>
-      <v-avatar
-        v-if="user === null"
-        :icon="mdiAccount"
-        color="skeleton"
-      />
-      <NuxtLink
-        v-else
-        :to="`/user/${user.userId}`"
-      >
-        <v-avatar
-          class="cursor-pointer hover:opacity-80"
-          :image="user.icon"
-        />
-      </NuxtLink>
       <div @click="drawer = !drawer">
-        <v-app-bar-nav-icon color="secondary" />
-        <!-- <v-app-bar-nav-icon
+        <v-app-bar-nav-icon
           v-if="user === null"
           color="secondary"
         />
@@ -104,7 +89,7 @@ const logout = async () => {
           v-else
           class="cursor-pointer hover:opacity-80"
           :image="user.icon"
-        /> -->
+        />
       </div>
     </template>
   </v-app-bar>
@@ -125,6 +110,7 @@ const logout = async () => {
       <v-list-item to="/login">Login</v-list-item>
     </div>
     <div v-else>
+      <v-list-item :to="`/user/${user.userId}`">My page</v-list-item>
       <v-list-item to="/post">Post</v-list-item>
       <v-list-item @click-once="logout">Logout</v-list-item>
     </div>

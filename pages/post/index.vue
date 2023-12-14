@@ -4,7 +4,6 @@ import { useTheme } from 'vuetify/lib/framework.mjs';
 
 const axios = useAxios()
 const router = useRouter()
-const theme = useTheme()
 const user = useUser(true)
 
 const state = reactive({
@@ -82,9 +81,9 @@ const post = async () => {
           </Text>
         </v-btn>
         <Text class="mt-4">
-          JPEG / GIF / PNG<br>
-          You can upload to 32MB per file and a maximum of 200files<br>
-          (the total file size must be less than 200 MB)<br>
+          JPG / JPEG / PNG / BMP<br>
+          <!-- You can upload to 32MB per file and a maximum of 200files<br>
+          (the total file size must be less than 200 MB)<br> -->
         </Text>
       </div>
     </UploadArea>
@@ -94,37 +93,16 @@ const post = async () => {
       class="mx-auto mt-4"
       :max-width="600"
     >
-      <!-- <v-text-field
-        label="title"
-        v-model="state.title"
-        required
+      <v-text-field
+      color="primary"
+      label="Title"
+      v-model="state.title"
+      required
       />
       <v-textarea
-        label="description"
+      color="primary"
+        label="Description"
         v-model="state.description"
-      /> -->
-      <input
-        class="field mb-2 px-4 py-2 w-100"
-        :style="{
-          color: 'inherit',
-          borderRadius: '8px',
-          background: theme.current.value.colors.primary,
-        }"
-        placeholder="Title"
-        v-model="state.title"
-        required
-      >
-      <textarea
-        class="field mb-2 px-4 py-2 w-100"
-        :style="{
-          color: 'inherit',
-          borderRadius: '8px',
-          background: theme.current.value.colors.primary,
-        }"
-        rows="5"
-        placeholder="Caption"
-        v-model="state.description"
-        required
       />
       <ProcessButton
         color="accent"
