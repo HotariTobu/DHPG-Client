@@ -1,6 +1,5 @@
 <script lang="ts" setup>
 import type Post from '@/schemas/post'
-import { useTheme } from 'vuetify/lib/framework.mjs';
 
 const axios = useAxios()
 const router = useRouter()
@@ -52,10 +51,10 @@ const post = async () => {
 
 <template>
   <v-sheet
-    class="d-flex flex-column"
+    class="d-flex flex-column px-2 py-4 text-text"
     color="secondary"
   >
-    <div class="mx-4">
+    <div>
       <BlobImage
         class="mx-auto mt-4"
         v-for="[id, img] of imgs"
@@ -66,27 +65,11 @@ const post = async () => {
         <!-- <v-btn>text</v-btn> -->
       </BlobImage>
     </div>
-    <UploadArea @upload="handleUpload">
-      <div class="my-10 text-center">
-        <v-btn
-          class="pointer-events-none"
-          color="accent"
-          width="300"
-        >
-          <Text
-            color="secondary"
-            class="normal-case"
-          >
-            Add images
-          </Text>
-        </v-btn>
-        <Text class="mt-4">
-          JPG / JPEG / PNG / BMP<br>
-          <!-- You can upload to 32MB per file and a maximum of 200files<br>
-          (the total file size must be less than 200 MB)<br> -->
-        </Text>
-      </div>
-    </UploadArea>
+    <UploadArea
+      class="mt-4"
+      label="add images"
+      @upload="handleUpload"
+    />
   </v-sheet>
   <div class="px-2">
     <v-sheet
@@ -94,24 +77,21 @@ const post = async () => {
       :max-width="600"
     >
       <v-text-field
-      color="primary"
-      label="Title"
-      v-model="state.title"
-      required
+        variant="filled"
+        label="Title"
+        v-model="state.title"
+        required
       />
       <v-textarea
-      color="primary"
+        auto-grow
         label="Description"
         v-model="state.description"
       />
       <ProcessButton
-        color="accent"
         class="d-block mx-auto"
         :width="200"
         :func="post"
-      >
-        <Text color="secondary">post</Text>
-      </ProcessButton>
+      >post</ProcessButton>
     </v-sheet>
   </div>
 </template>

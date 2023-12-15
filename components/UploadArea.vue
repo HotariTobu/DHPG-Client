@@ -1,5 +1,8 @@
 <script lang="ts" setup>
+import { mdiImageMultipleOutline } from '@mdi/js';
+
 const props = withDefaults(defineProps<{
+  label?: string,
   disabled?: boolean,
 }>(), {
   disabled: false,
@@ -50,25 +53,45 @@ const handleDrop = (event: DragEvent) => {
   <label
     class="d-flex flex-column"
     :class="{
-      'cursor-pointer': !disabled,
+      'cursor-pointer': !props.disabled,
     }"
     @dragover.prevent="handleDragover"
     @drop.prevent="handleDrop"
   >
     <input
-      :disabled="disabled"
+      :disabled="props.disabled"
       class="d-none"
       type="file"
       multiple
       @change="handleChange"
     >
+
     <slot>
-      <v-card
-        class="pa-4 text-center"
-        link
+      <div
+        class="d-flex mx-auto w-100 border-dashed border-1"
+        :style="{
+          maxWidth: '300px',
+          height: '200px',
+        }"
       >
-        Upload here...
-      </v-card>
+        <v-icon
+          class="d-block ma-auto"
+          size="x-large"
+          :icon="mdiImageMultipleOutline"
+        />
+      </div>
+      <div class="mt-4 text-center">
+        <Button
+          class="pointer-events-none"
+          variant="outlined"
+          :text="props.label"
+        />
+        <div class="mt-2">
+          JPG / JPEG / PNG<br>
+          <!-- You can upload to 32MB per file and a maximum of 200files<br>
+          (the total file size must be less than 200 MB)<br> -->
+        </div>
+      </div>
     </slot>
   </label>
 </template>

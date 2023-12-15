@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+import type User from '~/schemas/user';
+
 definePageMeta({
   layout: false,
 })
@@ -13,7 +15,7 @@ const state = reactive({
 })
 
 const login = async () => {
-  const res = await axios.post<typeof user.value>('/login', toRaw(state))
+  const res = await axios.post<User>('/login', toRaw(state))
 
   if (res.status === 200) {
     user.value = res.data
@@ -34,32 +36,36 @@ const login = async () => {
 <template>
   <div class="my-auto pa-2">
     <v-card
-      class="mx-auto px-4 px-sm-10 py-10"
+      class="mx-auto px-2 px-sm-10 py-10 text-text"
       color="secondary"
       :max-width="400"
     >
-      <Text class="mb-16 text-h2 text-center text-logo">
-        login
-      </Text>
+      <div class="mb-12 text-h2 text-center text-logo select-none">
+        iSign
+      </div>
       <v-form class="w-100">
-        <v-text-field
-          bg-color="white"
+        <FormField
           v-model="state.email"
           label="Email"
           required
         />
         <PasswordField
-          bg-color="white"
           v-model="state.password"
           label="Password"
           required
         />
         <ProcessButton
-          class="d-block mx-auto my-12"
-          width="200"
-          height="50"
+          class="d-block mx-auto"
           :func="login"
         >Login</ProcessButton>
+        <div class="d-flex mx-auto mt-2 w-fit">
+          Have no accounts?
+          <NuxtLink
+            class="ms-2"
+            to="/sign-up"
+            replace
+          >Sign up</NuxtLink>
+        </div>
       </v-form>
     </v-card>
   </div>

@@ -1,26 +1,14 @@
 <script lang="ts" setup>
-import { mdiAccount, mdiMagnify } from '@mdi/js'
+import { mdiMagnify, mdiTextBoxPlusOutline } from '@mdi/js'
+import { useDisplay } from 'vuetify/lib/framework.mjs';
 
 const axios = useAxios()
+const { xs } = useDisplay()
 const { updateQuery } = useQuery()
 const router = useRouter()
 const user = useUser()
 
 const drawer = ref(false)
-const searchParam = ref('')
-
-const goHome = () => {
-  router.push('/')
-}
-
-const search = () => {
-  const param = searchParam.value
-  if (param === '') {
-    return
-  }
-
-  updateQuery('q', param, '/search')
-}
 
 const logout = async () => {
   const res = await axios.get('/logout')
@@ -40,46 +28,50 @@ const logout = async () => {
     scroll-behavior="hide"
   >
     <template #prepend>
-      <Text>
-        <a
-          class="logo text-h4 ms-4 me-6 text-logo"
-          href="/"
-          @click.prevent="goHome"
-        >iSign</a>
-      </Text>
+      <a
+        class="text-inherit no-underline select-none text-h4 mx-4 text-logo text-text"
+        href="/"
+        @click.prevent="() => router.push('/')"
+      >iSign</a>
     </template>
 
-    <v-hover>
-      <template #="{ isHovering, props }">
-        <v-text-field
-          bg-color="secondary"
-          :rounded="true"
-          v-bind="props"
-          v-model="searchParam"
-          placeholder="Search here..."
-          @click:append-inner="search"
-          @keyup.enter="search"
-          :append-inner-icon="mdiMagnify"
-          variant="outlined"
-          density="compact"
-          single-line
-          hide-details
-          clearable
-        />
-      </template>
-    </v-hover>
+    <div
+      v-if="!xs"
+      class="w-100 mx-2"
+    >
+      <SearchField
+        class="ms-auto mb-2"
+        :style="{
+          maxWidth: '400px',
+        }"
+        color="secondary"
+        @search="param => updateQuery('q', param, '/search')"
+      />
+    </div>
 
     <template #append>
       <v-btn
-        class="mx-4"
-        color="accent"
-        variant="flat"
-        to="/post"
+        v-if="xs"
+        color="secondary"
+        :icon="mdiMagnify"
+        to="/search"
+      />
+      <div
+        class="text-secondary"
+        @click="() => router.push('/post')"
       >
-        <Text color="secondary">
-          post
-        </Text>
-      </v-btn>
+        <v-btn
+          v-if="xs"
+          :icon="mdiTextBoxPlusOutline"
+        />
+        <v-btn
+          v-else
+          rounded
+          variant="outlined"
+          text="post"
+          :append-icon="mdiTextBoxPlusOutline"
+        />
+      </div>
       <div @click="drawer = !drawer">
         <v-app-bar-nav-icon
           v-if="user === null"
@@ -87,7 +79,7 @@ const logout = async () => {
         />
         <v-avatar
           v-else
-          class="cursor-pointer hover:opacity-80"
+          class="ms-2 cursor-pointer hover:opacity-80"
           :image="user.icon"
         />
       </div>
@@ -103,6 +95,7 @@ const logout = async () => {
     <v-list-item
       title="iSign"
       subtitle="Image SNS"
+      to="/"
     ></v-list-item>
     <v-divider />
     <div v-if="user === null">
@@ -114,21 +107,19 @@ const logout = async () => {
       <v-list-item to="/post">Post</v-list-item>
       <v-list-item @click-once="logout">Logout</v-list-item>
     </div>
-    <!-- <v-divider />
-    <v-list-item to="/verify">Verify</v-list-item> -->
+    <v-divider />
+    <v-list-item to="/verify">Verify</v-list-item>
   </v-navigation-drawer>
 
-  <Text>
+  <div class="text-text">
     <v-main class="mb-16">
       <slot />
     </v-main>
-  </Text>
-</template>
+  </div>
 
-<style scoped>
-.logo {
-  color: inherit;
-  user-select: none;
-  text-decoration: none;
-}
-</style>
+  <v-footer class="bg-secondary">
+    <div class="mx-auto text-text">
+      2023 - DHPG
+    </div>
+  </v-footer>
+</template>

@@ -51,7 +51,7 @@ const cols = computed(() => lg.value ? 2 : md.value ? 3 : sm.value ? 4 : 6)
             <NuxtLink :to="`/post/${thumbnail.postId}`">
               <v-img
                 aspect-ratio="1"
-                :cover="true"
+                cover
                 :src="thumbnail.src"
               />
             </NuxtLink>

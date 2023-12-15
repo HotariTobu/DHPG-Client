@@ -3,7 +3,7 @@
 
 <template>
   <div>
-    <Text class="ms-4 mt-4">Recent Posts</Text>
+    <div class="ms-4 mt-4 text-h6">Recent Posts</div>
     <Posts />
   </div>
 </template>

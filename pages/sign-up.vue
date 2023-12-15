@@ -37,48 +37,41 @@ const signUp = async () => {
 <template>
   <div class="my-auto pa-2">
     <v-card
-      class="mx-auto px-4 px-sm-10 py-10"
+      class="mx-auto px-2 px-sm-10 py-10 text-text"
       color="secondary"
       :max-width="400"
     >
-      <Text class="mb-16 text-h2 text-center text-logo">
-        sign up
-      </Text>
+      <div class="mb-12 text-h2 text-center text-logo select-none">
+        iSign
+      </div>
       <v-form>
-        <v-text-field
-          bg-color="white"
+        <FormField
           v-model="state.name"
           label="Name"
           required
         />
-        <v-text-field
-          bg-color="white"
+        <FormField
           v-model="state.email"
           label="Email"
           required
         />
         <PasswordField
-          bg-color="white"
           v-model="state.password"
           label="Password"
           required
         />
-        <div class="d-flex mx-auto w-fit">
-          <Text class="me-4">
-            Already a member?
-          </Text>
+        <ProcessButton
+          class="d-block mx-auto"
+          :func="signUp"
+        >Sign Up</ProcessButton>
+        <div class="d-flex mx-auto mt-2 w-fit">
+          Already have an account?
           <NuxtLink
+            class="ms-2"
             to="/login"
-            :replace="true"
+            replace
           >Login</NuxtLink>
         </div>
-        <ProcessButton
-          class="d-block mx-auto my-12"
-          width="200"
-          height="50"
-          :func="signUp"
-        >
-          Sign Up</ProcessButton>
       </v-form>
     </v-card>
   </div>

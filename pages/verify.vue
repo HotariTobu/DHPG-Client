@@ -43,40 +43,45 @@ onErrorCaptured(() => {
 </script>
 
 <template>
-  <v-card
-    class="mt-4 mx-auto"
-    width="500"
-    :loading="status === 'processing'"
-  >
-    <VImg
-      v-if="image !== null"
-      class="mt-4"
-      :src="image"
+  <div class="mt-4 mx-2">
+    <v-card
+      class="mx-auto pa-4"
+      color="secondary"
+      maxWidth="500"
+      :loading="status === 'processing'"
     >
-    </VImg>
-    <UploadArea @upload="handleUpload" />
+      <v-alert
+        v-if="status === 'owned'"
+        type="info"
+      >
+        The image is owned
+        <span v-if="user !== null">
+          by
+          <NuxtLink :to="`/user/${user.userId}`">{{ user.name }}</NuxtLink>
+        </span>
+        .
+      </v-alert>
 
-    <v-alert
-      v-if="status === 'owned'"
-      class="ma-4"
-      type="info"
-    >
-      The image is owned
-      <span v-if="user !== null">
-        by
-        <NuxtLink :to="`/user/${user.userId}`">{{ user.name }}</NuxtLink>
-      </span>
-      .
-    </v-alert>
+      <v-alert
+        v-if="status === 'not-owned'"
+        type="info"
+      >
+        The image is owned by no one on this site.
+      </v-alert>
 
-    <v-alert
-      v-if="status === 'not-owned'"
-      class="ma-4"
-      type="info"
-    >
-      The image is owned by no one on this site.
-    </v-alert>
-  </v-card>
+      <VImg
+        v-if="image !== null"
+        class="mt-4"
+        :src="image"
+      />
+
+      <UploadArea
+        class="mt-4"
+        label="verify image"
+        @upload="handleUpload"
+      />
+    </v-card>
+  </div>
 </template>
 
 <style scoped>

@@ -3,27 +3,35 @@
 @import url('https://fonts.googleapis.com/css2?family=Overpass:wght@400&family=Satisfy&display=swap');
 
 body {
-  font-family: 'Overpass', sans-serif !important;
+  font-family: 'Overpass', sans-serif !important
 }
 
 .text-logo {
   font-family: 'Satisfy', cursive !important
 }
 
-.w-fit {
-  width: fit-content;
+.text-inherit {
+  color: inherit
 }
 
-.normal-case {
-  text-transform: none !important;
+.no-underline {
+  text-decoration-line: none
+}
+
+.select-none {
+  user-select: none
+}
+
+.w-fit {
+  width: fit-content
 }
 
 .pointer-events-none {
-  pointer-events: none;
+  pointer-events: none
 }
 
 .cursor-pointer {
-  cursor: pointer;
+  cursor: pointer
 }
 
 .hover\:opacity-80:hover {
@@ -32,4 +40,12 @@ body {
 
 .w-screen {
   width: 100vw
+}
+
+.border-1 {
+  border-width: 1px
+}
+
+.border-dashed {
+  border-style: dashed
 }

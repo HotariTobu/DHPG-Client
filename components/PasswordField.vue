@@ -22,7 +22,7 @@ const value = computed({
 </script>
 
 <template>
-  <v-text-field
+  <FormField
     v-bind="$attrs"
     v-model="value"
     :type="show ? 'text' : 'password'"

@@ -22,7 +22,7 @@ onErrorCaptured(() => {
 </script>
 
 <template>
-  <v-btn
+  <Button
     v-bind="$attrs"
     color="primary"
     @click="handleClick"
@@ -30,7 +30,7 @@ onErrorCaptured(() => {
     :loading="processing"
   >
     <slot />
-  </v-btn>
+  </Button>
 </template>
 
 <style scoped>
