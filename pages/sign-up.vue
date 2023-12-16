@@ -53,6 +53,7 @@ const signUp = async () => {
         <FormField
           v-model="state.email"
           label="Email"
+          type="email"
           required
         />
         <PasswordField
