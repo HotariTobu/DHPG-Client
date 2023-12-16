@@ -29,7 +29,7 @@ const logout = async () => {
   >
     <template #prepend>
       <a
-        class="text-inherit no-underline select-none text-h4 mx-4 text-logo text-text"
+        class="text-inherit no-underline select-none text-h4 mx-4 text-logo text-secondary"
         href="/"
         @click.prevent="() => router.push('/')"
       >iSign</a>
