@@ -5,7 +5,7 @@ export const useAxios = () => {
 
   const instance = axios.create({
     baseURL: runtimeConfig.public.API_BASE_URL,
-    timeout: 3000,
+    timeout: 60000,
   })
 
   instance.interceptors.response.use(res => {
