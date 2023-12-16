@@ -36,7 +36,7 @@ const cols = computed(() => lg.value ? 2 : md.value ? 3 : sm.value ? 4 : 6)
         <v-row>
           <v-col
             v-if="data === null"
-            cols="3"
+            :cols="cols"
             v-for="i in 12"
             :key="i"
           >
