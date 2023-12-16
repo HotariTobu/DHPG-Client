@@ -1,11 +1,22 @@
 <script lang="ts" setup>
+import { AxiosError } from 'axios';
+
 const errorLogs = ref(new Map<number, Error>())
 
 onErrorCaptured(error => {
   if (error instanceof Error) {
+    console.error(error)
+
+    if (error instanceof AxiosError) {
+      const message = error.response?.data?.message
+      if (message) {
+        error = Error(message)
+      }
+    }
+
     if (error.message !== '') {
-      console.error(error)
-      errorLogs.value.set(Date.now(), error)
+      const key = Date.now()
+      errorLogs.value.set(key, error)
     }
 
     return false

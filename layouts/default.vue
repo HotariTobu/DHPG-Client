@@ -74,7 +74,7 @@ const logout = async () => {
       </div>
       <div @click="drawer = !drawer">
         <v-app-bar-nav-icon
-          v-if="user === null"
+          v-if="user === null || typeof user.icon === 'undefined'"
           color="secondary"
         />
         <v-avatar

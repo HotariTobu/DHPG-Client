@@ -29,6 +29,7 @@ const applyUpdate = async (user: User) => {
   const res = await axios.put(`/user/${userId}`, toRaw(user))
 
   if (res.status === 200) {
+    loggedInUser.value = user
     editing.value = false
   }
   else {
