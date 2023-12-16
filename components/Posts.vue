@@ -21,8 +21,8 @@ const config = {
   }
 }
 
-const { lg, md, sm } = useDisplay()
-const cols = computed(() => lg.value ? 2 : md.value ? 3 : sm.value ? 4 : 6)
+const { xs, sm, md } = useDisplay()
+const cols = computed(() => xs.value ? 6 : sm.value ? 4 : md.value ? 3 : 2)
 </script>
 
 <template>
